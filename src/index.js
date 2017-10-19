@@ -42,12 +42,6 @@ const getJsx = (virtualDom) => {
     .replace(/\n/gm, () => '\n\t\t\t\t\t')
     .replace(/\t/gm, () => '  ')
 
-    console.log(text)
-    console.log('elements sas :', {
-      content: content.getAll(),
-      elements: getExistingElements()
-    })
-
   createCode(text)
 }
 
@@ -65,20 +59,19 @@ const initializeVirtualDom = (value) => {
 const convertElements = (dom) =>
   Object.values(Elements).forEach(element => element.convert(dom))
 
-const covertClass = (element) => {
-  if (element.className) {
-    const classes = element.className
-      .split(' ')
-      .map(className => className.includes('-') ? `css['${className}']` : `css.${className}`)
-      .join(', ')
-
-    element.className = classes.split(' ').length > 1
-      ? `{classNames(${classes})cls#}`
-      : `{${classes}cls#}`
-  }
-}
-
-const convertClasses = (dom) => dom.querySelectorAll('*').forEach(covertClass)
+const convertClasses = (dom) =>
+  dom.querySelectorAll('*').forEach((element) => {
+    if (element.className) {
+      const classes = element.className
+        .split(' ')
+        .map(className => className.includes('-') ? `css['${className}']` : `css.${className}`)
+        .join(', ')
+  
+      element.className = classes.split(' ').length > 1
+        ? `{classNames(${classes})cls#}`
+        : `{${classes}cls#}`
+    }
+  })
 
 const startConverting$ = start$
   .map(initializeVirtualDom)
