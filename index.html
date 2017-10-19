@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Block Parser</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <h1 class="title">HTML Converter</h1>
+    <div class="container">
+      <div class="input-part">
+        <label for="block-name-input">Set block's name</label>
+        <input id="block-name-input" class="block-name-input"/>
+        <textarea id="textarea" class="textarea"></textarea>
+        <button id="button">Get Block Code</button>
+      </div>
+      <div id="output-part" class="output-part">
+        <button id="clipboard" class="clipboard-btn">Copy to clipboard</button>
+        <pre id="code-output" class="code-output"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="./bundle.js"></script>
+</body>
+</html>
