@@ -39,7 +39,7 @@ const getJsx = (virtualDom) => {
     .replace(/data-bind/igm, () => 'bind')
     .replace(/class="/igm, () => 'className=')
     .replace(/cls#}"/gm, () => '}')
-    .replace(/\n/gm, () => '\n\t\t\t\t\t')
+    .replace(/\n/gm, () => '\n\t\t\t')
     .replace(/\t/gm, () => '  ')
 
   createCode(text)

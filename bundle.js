@@ -6493,7 +6493,7 @@ const createCode = code => {
 };
 
 const getJsx = virtualDom => {
-  const text = virtualDom.innerHTML.replace(appTags, replaceTags).replace(closingTags, () => '/>').replace(/data-bind/igm, () => 'bind').replace(/class="/igm, () => 'className=').replace(/cls#}"/gm, () => '}').replace(/\n/gm, () => '\n\t\t\t\t\t').replace(/\t/gm, () => '  ');
+  const text = virtualDom.innerHTML.replace(appTags, replaceTags).replace(closingTags, () => '/>').replace(/data-bind/igm, () => 'bind').replace(/class="/igm, () => 'className=').replace(/cls#}"/gm, () => '}').replace(/\n/gm, () => '\n\t\t\t').replace(/\t/gm, () => '  ');
 
   createCode(text);
 };
