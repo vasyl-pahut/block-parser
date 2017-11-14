@@ -4,7 +4,7 @@ import {
   Elements, getExistingElements, clearElements
 } from './custom-elements'
 import {
-  $blockNameInput, $textarea, $button, $codeOutput, $copyBtn
+  $blockNameInput, $textarea, $button, $codeOutput, $copyCodeBtn, $copyContentBtn
 } from './dom-elements'
 import content from './content'
 import BlockTemplate from './block-template'
@@ -29,7 +29,10 @@ const createCode = (code) => {
   const fullCode = BlockTemplate({blockName, code})
 
   $codeOutput.innerText = fullCode
-  new Clipboard($copyBtn, {text: () => fullCode})
+  console.log('content: ', {content: content.getAll()})
+  new Clipboard($copyCodeBtn, {text: () => fullCode})
+  new Clipboard($copyContentBtn, {text: () => JSON.stringify(content.getAll(), undefined, 2)})
+
 }
 
 const getJsx = (virtualDom) => {
