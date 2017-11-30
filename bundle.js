@@ -6386,19 +6386,20 @@ const Elements = {
   },
   Image: {
     convert: dom => {
-      const elements = findElements(dom, ['img']);
+      const elements = findElements(dom, ['picture']);
 
       elements.length && existingElements.push('Image');
 
       elements.forEach((element, index) => {
         const imageElement = new AppImage();
         if (element.className) {
-          imageElement.className = element.className;
+          imageElement.dataset.pictureClassName = element.className;
+          imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className;
         }
-        imageElement.dataset.bind = `image-${index}`;
-        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`image-${index}`, {
-          src: element.src,
-          alt: element.alt
+        imageElement.dataset.bind = `${element.className}-${index}`;
+        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`${element.className}-${index}`, {
+          src: findElements(element, ['img'])[0].src,
+          alt: findElements(element, ['img'])[0].alt
         });
         const parentNode = element.parentElement;
         parentNode.replaceChild(imageElement, element);
@@ -6407,7 +6408,7 @@ const Elements = {
   },
   Button: {
     convert: dom => {
-      const elements = findElements(dom, ['button', 'a']);
+      const elements = findElements(dom, ['button', 'a']).filter(element => !element.childElementCount);
 
       elements.length && existingElements.push('Button');
 
@@ -6416,8 +6417,8 @@ const Elements = {
         if (element.className) {
           buttonElement.className = element.className;
         }
-        buttonElement.dataset.bind = `button-${index}`;
-        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`button-${index}`, {
+        buttonElement.dataset.bind = `${element.className}-${index}`;
+        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`${element.className}-${index}`, {
           link: element.href || '',
           textValue: element.innerText
         });
@@ -6489,16 +6490,18 @@ const createCode = code => {
   const fullCode = Object(__WEBPACK_IMPORTED_MODULE_5__block_template__["a" /* default */])({ blockName, code });
 
   __WEBPACK_IMPORTED_MODULE_3__dom_elements__["c" /* $codeOutput */].innerText = fullCode;
-  new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(__WEBPACK_IMPORTED_MODULE_3__dom_elements__["d" /* $copyBtn */], { text: () => fullCode });
+  console.log('content: ', { content: __WEBPACK_IMPORTED_MODULE_4__content__["a" /* default */].getAll() });
+  new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(__WEBPACK_IMPORTED_MODULE_3__dom_elements__["d" /* $copyCodeBtn */], { text: () => fullCode });
+  new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(__WEBPACK_IMPORTED_MODULE_3__dom_elements__["e" /* $copyContentBtn */], { text: () => JSON.stringify(__WEBPACK_IMPORTED_MODULE_4__content__["a" /* default */].getAll(), undefined, 2) });
 };
 
 const getJsx = virtualDom => {
-  const text = virtualDom.innerHTML.replace(appTags, replaceTags).replace(closingTags, () => '/>').replace(/data-bind/igm, () => 'bind').replace(/class="/igm, () => 'className=').replace(/cls#}"/gm, () => '}').replace(/\n/gm, () => '\n\t\t\t').replace(/\t/gm, () => '  ');
+  const text = virtualDom.innerHTML.replace(appTags, replaceTags).replace(closingTags, () => '/>').replace(/data-bind/igm, () => 'bind').replace(/data-picture-class-name="/, () => 'pictureClassName=').replace(/data-img-class-name="/, () => 'imgClassName=').replace(/class="/igm, () => 'className=').replace(/cls#}"/gm, () => '}').replace(/\n/gm, () => '\n\t\t\t').replace(/\t/gm, () => '  ');
 
   createCode(text);
 };
 
-const start$ = __WEBPACK_IMPORTED_MODULE_0_rxjs_Rx__["Observable"].fromEvent(__WEBPACK_IMPORTED_MODULE_3__dom_elements__["b" /* $button */], 'click').map(event => __WEBPACK_IMPORTED_MODULE_3__dom_elements__["e" /* $textarea */].value);
+const start$ = __WEBPACK_IMPORTED_MODULE_0_rxjs_Rx__["Observable"].fromEvent(__WEBPACK_IMPORTED_MODULE_3__dom_elements__["b" /* $button */], 'click').map(event => __WEBPACK_IMPORTED_MODULE_3__dom_elements__["f" /* $textarea */].value);
 
 const initializeVirtualDom = value => {
   const div = document.createElement('div');
@@ -6510,11 +6513,13 @@ const initializeVirtualDom = value => {
 const convertElements = dom => Object.values(__WEBPACK_IMPORTED_MODULE_2__custom_elements__["a" /* Elements */]).forEach(element => element.convert(dom));
 
 const convertClasses = dom => dom.querySelectorAll('*').forEach(element => {
-  if (element.className) {
-    const classes = element.className.split(' ').map(className => className.includes('-') ? `css['${className}']` : `css.${className}`).join(', ');
+  ['class', 'data-img-class-name', 'data-picture-class-name'].forEach(attribute => {
+    if (element.attributes[attribute] && element.attributes[attribute].value) {
+      const classes = element.attributes[attribute].value.split(' ').map(className => className.includes('-') ? `css['${className}']` : `css.${className}`).join(', ');
 
-    element.className = classes.split(' ').length > 1 ? `{classNames(${classes})cls#}` : `{${classes}cls#}`;
-  }
+      element.attributes[attribute].value = classes.split(' ').length > 1 ? `{classNames(${classes})cls#}` : `{${classes}cls#}`;
+    }
+  });
 });
 
 const startConverting$ = start$.map(initializeVirtualDom).do(convertElements).do(convertClasses).subscribe(getJsx);
@@ -22167,7 +22172,7 @@ const $blockNameInput = document.getElementById('block-name-input');
 /* harmony export (immutable) */ __webpack_exports__["a"] = $blockNameInput;
 
 const $textarea = document.getElementById('textarea');
-/* harmony export (immutable) */ __webpack_exports__["e"] = $textarea;
+/* harmony export (immutable) */ __webpack_exports__["f"] = $textarea;
 
 const $button = document.getElementById('button');
 /* harmony export (immutable) */ __webpack_exports__["b"] = $button;
@@ -22175,8 +22180,11 @@ const $button = document.getElementById('button');
 const $codeOutput = document.getElementById('code-output');
 /* harmony export (immutable) */ __webpack_exports__["c"] = $codeOutput;
 
-const $copyBtn = document.getElementById('clipboard');
-/* harmony export (immutable) */ __webpack_exports__["d"] = $copyBtn;
+const $copyCodeBtn = document.getElementById('clipboard-code');
+/* harmony export (immutable) */ __webpack_exports__["d"] = $copyCodeBtn;
+
+const $copyContentBtn = document.getElementById('clipboard-content');
+/* harmony export (immutable) */ __webpack_exports__["e"] = $copyContentBtn;
 
 
 /***/ }),
@@ -22188,26 +22196,20 @@ const $copyBtn = document.getElementById('clipboard');
 
 
 /* harmony default export */ __webpack_exports__["a"] = (({ blockName, code }) => `import classNames from 'classnames'
-import {getComponents} from '../../../api/helpers'
-import css from './css/main.scss'
+import $editor from 'weblium/editor'
+import css from './style.css'
 
-class ${blockName} extends React.Component {
-  static propTypes = {
-    content: PropTypes.object,
-    publish: PropTypes.bool,
-    save: PropTypes.func
-  }
+const {enhancers: {withComponents}} = $editor
 
-  render() {
-    const {content, save, publish} = this.props
-    const [${Object(__WEBPACK_IMPORTED_MODULE_0__custom_elements__["c" /* getExistingElements */])().join(', ')}] = getComponents([${Object(__WEBPACK_IMPORTED_MODULE_0__custom_elements__["c" /* getExistingElements */])().map(el => `'${el}'`).join(', ')}])({content, save, publish})
-    return (
-      ${code}
-    )
-  }
+const ${blockName} = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_0__custom_elements__["c" /* getExistingElements */])().map(el => `${el}`).join(', ')}}}) => (
+  ${code}
+)
+
+${blockName}.propTypes = {
+  components: PropTypes.object.isRequired,
 }
 
-export default ${blockName}
+export default withComponents(${Object(__WEBPACK_IMPORTED_MODULE_0__custom_elements__["c" /* getExistingElements */])().map(el => `'${el}'`).join(', ')})(${blockName})
 `);
 
 /***/ })
