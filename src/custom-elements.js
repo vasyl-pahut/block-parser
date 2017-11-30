@@ -60,9 +60,9 @@ export const Elements = {
         if (findElements(element, ['img'])[0].className) {
           imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className
         }
-        imageElement.dataset.bind = `${element.className}-${index}`
+        imageElement.dataset.bind = `image-${index}`
         const placeholder = 'https://www.vms.ro/wp-content/uploads/2015/04/mobius-placeholder-2.png'
-        content.set(`${element.className}-${index}`, {
+        content.set(`image-${index}`, {
           src: placeholder,
           alt: findElements(element, ['img'])[0].alt
         })

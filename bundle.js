@@ -6398,9 +6398,9 @@ const Elements = {
         if (findElements(element, ['img'])[0].className) {
           imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className;
         }
-        imageElement.dataset.bind = `${element.className}-${index}`;
+        imageElement.dataset.bind = `image-${index}`;
         const placeholder = 'https://www.vms.ro/wp-content/uploads/2015/04/mobius-placeholder-2.png';
-        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`${element.className}-${index}`, {
+        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`image-${index}`, {
           src: placeholder,
           alt: findElements(element, ['img'])[0].alt
         });
