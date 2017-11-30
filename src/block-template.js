@@ -1,24 +1,18 @@
 import {getExistingElements} from './custom-elements'
 
 export default ({blockName, code}) => `import classNames from 'classnames'
-import {getComponents} from '../../../api/helpers'
-import css from './css/main.scss'
+import $editor from 'weblium/editor'
+import css from './style.css'
 
-class ${blockName} extends React.Component {
-  static propTypes = {
-    content: PropTypes.object,
-    publish: PropTypes.bool,
-    save: PropTypes.func
-  }
+const {enhancers: {withComponents}} = $editor
 
-  render() {
-    const {content, save, publish} = this.props
-    const [${getExistingElements().join(', ')}] = getComponents([${getExistingElements().map(el => `'${el}'`).join(', ')}])({content, save, publish})
-    return (
-      ${code}
-    )
-  }
+const ${blockName} = ({components: {${getExistingElements().map(el => `${el}`).join(', ')}}}) => (
+  ${code}
+)
+
+${blockName}.propTypes = {
+  components: PropTypes.object.isRequired,
 }
 
-export default ${blockName}
+export default withComponents(${getExistingElements().map(el => `'${el}'`).join(', ')})(${blockName})
 `

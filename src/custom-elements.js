@@ -48,19 +48,20 @@ export const Elements = {
   },
   Image: {
     convert: (dom) => {
-      const elements = findElements(dom, ['img'])
+      const elements = findElements(dom, ['picture'])
       
       elements.length && existingElements.push('Image')
       
       elements.forEach((element, index) => {
         const imageElement = new AppImage()
         if (element.className) {
-          imageElement.className = element.className
+          imageElement.dataset.pictureClassName = element.className
+          imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className
         }
-        imageElement.dataset.bind = `image-${index}`
-        content.set(`image-${index}`, {
-          src: element.src,
-          alt: element.alt
+        imageElement.dataset.bind = `${element.className}-${index}`
+        content.set(`${element.className}-${index}`, {
+          src: findElements(element, ['img'])[0].src,
+          alt: findElements(element, ['img'])[0].alt
         })
         const parentNode = element.parentElement
         parentNode.replaceChild(imageElement, element)
@@ -69,7 +70,7 @@ export const Elements = {
   },
   Button: {
     convert: (dom) => {
-      const elements = findElements(dom, ['button', 'a'])
+      const elements = findElements(dom, ['button', 'a']).filter(element => !element.childElementCount)
 
       elements.length && existingElements.push('Button')
 
@@ -78,8 +79,8 @@ export const Elements = {
         if (element.className) {
           buttonElement.className = element.className
         }
-        buttonElement.dataset.bind = `button-${index}`
-        content.set(`button-${index}`, {
+        buttonElement.dataset.bind = `${element.className}-${index}`
+        content.set(`${element.className}-${index}`, {
           link: element.href || '',
           textValue: element.innerText
         })

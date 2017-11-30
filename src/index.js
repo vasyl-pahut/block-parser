@@ -40,6 +40,8 @@ const getJsx = (virtualDom) => {
     .replace(appTags, replaceTags)
     .replace(closingTags, () => '/>')
     .replace(/data-bind/igm, () => 'bind')
+    .replace(/data-picture-class-name="/, () => 'pictureClassName=')
+    .replace(/data-img-class-name="/, () => 'imgClassName=')
     .replace(/class="/igm, () => 'className=')
     .replace(/cls#}"/gm, () => '}')
     .replace(/\n/gm, () => '\n\t\t\t')
@@ -64,16 +66,18 @@ const convertElements = (dom) =>
 
 const convertClasses = (dom) =>
   dom.querySelectorAll('*').forEach((element) => {
-    if (element.className) {
-      const classes = element.className
-        .split(' ')
-        .map(className => className.includes('-') ? `css['${className}']` : `css.${className}`)
-        .join(', ')
-  
-      element.className = classes.split(' ').length > 1
-        ? `{classNames(${classes})cls#}`
-        : `{${classes}cls#}`
-    }
+    ['class', 'data-img-class-name', 'data-picture-class-name'].forEach((attribute) => {
+      if (element.attributes[attribute] && element.attributes[attribute].value) {
+        const classes = element.attributes[attribute].value
+          .split(' ')
+          .map(className => className.includes('-') ? `css['${className}']` : `css.${className}`)
+          .join(', ')
+    
+        element.attributes[attribute].value = classes.split(' ').length > 1
+          ? `{classNames(${classes})cls#}`
+          : `{${classes}cls#}`
+      }
+    })
   })
 
 const startConverting$ = start$
