@@ -61,8 +61,9 @@ export const Elements = {
           imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className
         }
         imageElement.dataset.bind = `${element.className}-${index}`
+        const placeholder = 'https://www.vms.ro/wp-content/uploads/2015/04/mobius-placeholder-2.png'
         content.set(`${element.className}-${index}`, {
-          src: findElements(element, ['img'])[0].src,
+          src: placeholder,
           alt: findElements(element, ['img'])[0].alt
         })
         const parentNode = element.parentElement
