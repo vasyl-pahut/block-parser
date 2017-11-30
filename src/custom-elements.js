@@ -56,6 +56,8 @@ export const Elements = {
         const imageElement = new AppImage()
         if (element.className) {
           imageElement.dataset.pictureClassName = element.className
+        }
+        if (findElements(element, ['img'])[0].className) {
           imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className
         }
         imageElement.dataset.bind = `${element.className}-${index}`

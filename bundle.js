@@ -6394,6 +6394,8 @@ const Elements = {
         const imageElement = new AppImage();
         if (element.className) {
           imageElement.dataset.pictureClassName = element.className;
+        }
+        if (findElements(element, ['img'])[0].className) {
           imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className;
         }
         imageElement.dataset.bind = `${element.className}-${index}`;
@@ -6496,7 +6498,7 @@ const createCode = code => {
 };
 
 const getJsx = virtualDom => {
-  const text = virtualDom.innerHTML.replace(appTags, replaceTags).replace(closingTags, () => '/>').replace(/data-bind/igm, () => 'bind').replace(/data-picture-class-name="/, () => 'pictureClassName=').replace(/data-img-class-name="/, () => 'imgClassName=').replace(/class="/igm, () => 'className=').replace(/cls#}"/gm, () => '}').replace(/\n/gm, () => '\n\t\t\t').replace(/\t/gm, () => '  ');
+  const text = virtualDom.innerHTML.replace(appTags, replaceTags).replace(closingTags, () => '/>').replace(/data-bind/igm, () => 'bind').replace(/data-picture-class-name="/, () => 'pictureClassName').replace(/data-img-class-name="/, () => 'imgClassName').replace(/class="/igm, () => 'className=').replace(/cls#}"/igm, () => '}').replace(/xmlns:xlink/igm, () => 'xmlnsLink').replace(/xlink:href/igm, () => 'xlinkHref').replace(/\n/gm, () => '\n\t\t\t').replace(/\t/gm, () => '  ');
 
   createCode(text);
 };
