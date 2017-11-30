@@ -9,7 +9,6 @@ import {
 import content from './content'
 import BlockTemplate from './block-template'
 
-
 const appTags = /(app-text)|(app-image)|(app-button)/igm
 const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)/igm
 
