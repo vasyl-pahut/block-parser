@@ -37,7 +37,7 @@ const createCode = (code) => {
 const getJsx = (virtualDom) => {
   const text = virtualDom.innerHTML
     .replace(appTags, replaceTags)
-    .replace(closingTags, () => '/>')
+    .replace(closingTags, () => ' />')
     .replace(/data-bind/igm, () => 'bind')
     .replace(/data-picture-class-name="/igm, () => 'pictureClassName=')
     .replace(/data-img-class-name="/igm, () => 'imgClassName=')
