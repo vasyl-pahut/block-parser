@@ -82,9 +82,14 @@ export const Elements = {
         if (element.className) {
           buttonElement.className = element.className
         }
-        buttonElement.dataset.bind = `${element.className}-${index}`
-        content.set(`${element.className}-${index}`, {
-          link: element.href || '',
+        buttonElement.dataset.bind = `button-${index}`
+        content.set(`button-${index}`, {
+          actionConfig: {
+            action: 'link',
+            actions: {
+              link: {type: '', innerPage: '', url: ''}
+            },
+          },
           textValue: element.innerText
         })
         const parentNode = element.parentElement

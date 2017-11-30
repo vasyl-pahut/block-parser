@@ -6420,9 +6420,14 @@ const Elements = {
         if (element.className) {
           buttonElement.className = element.className;
         }
-        buttonElement.dataset.bind = `${element.className}-${index}`;
-        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`${element.className}-${index}`, {
-          link: element.href || '',
+        buttonElement.dataset.bind = `button-${index}`;
+        __WEBPACK_IMPORTED_MODULE_0__content__["a" /* default */].set(`button-${index}`, {
+          actionConfig: {
+            action: 'link',
+            actions: {
+              link: { type: '', innerPage: '', url: '' }
+            }
+          },
           textValue: element.innerText
         });
         const parentNode = element.parentElement;
