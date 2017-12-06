@@ -1,0 +1,57 @@
+{
+  "extends": ["airbnb"],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./config/webpack.config.dev.js"
+      }
+    }
+  },
+  "plugins": [
+    "chai-friendly"
+  ],
+  "globals": {
+    "_": false,
+    "React": false,
+    "PropTypes": false,
+    "__DEV__": false,
+    "__PROD__": false,
+    "__STAGE__": false,
+    "expect": true,
+    "sinon": true,
+    "mount": true
+  },
+  "rules": {
+    "no-mixed-operators": "warn",
+    "max-len": ["warn", 100],
+    "semi": ["error", "never"],
+    "arrow-body-style": "warn",
+    "object-curly-spacing": ["warn", "never"],
+    "object-curly-newline": "off",
+    "consistent-return": "warn",
+    "global-require": "warn",
+    "no-unused-expressions": "off",
+    "no-unused-vars": "warn",
+    "no-return-assign": "warn",
+    "no-underscore-dangle": "warn",
+    "import/first": "off",
+    "no-confusing-arrow": "off",
+    "import/prefer-default-export": "off",
+    "import/no-dynamic-require": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-named-as-default": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "react/jsx-first-prop-new-line": "warn",
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off",
+    "react/prefer-stateless-function": "warn",
+    "react/no-multi-comp": "warn"
+  }
+}

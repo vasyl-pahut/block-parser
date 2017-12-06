@@ -9,8 +9,8 @@ import {
 import content from './content'
 import BlockTemplate from './block-template'
 
-const appTags = /(app-text)|(app-image)|(app-button)/igm
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)/igm
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)/igm
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)/igm
 
 const replaceTags = (match) => {
   const tag = match.split('-')[1]
@@ -41,6 +41,8 @@ const getJsx = (virtualDom) => {
     .replace(/data-bind/igm, () => 'bind')
     .replace(/data-picture-class-name="/igm, () => 'pictureClassName=')
     .replace(/data-img-class-name="/igm, () => 'imgClassName=')
+    .replace(/data-item-class-name="/igm, () => 'itemClassName=')
+    .replace(/data-link-class-name="/igm, () => 'linkClassName=')
     .replace(/class="/igm, () => 'className=')
     .replace(/cls#}"/igm, () => '}')
     .replace(/xmlns:xlink/igm, () => 'xmlnsLink')
@@ -65,9 +67,16 @@ const initializeVirtualDom = (value) => {
 const convertElements = (dom) =>
   Object.values(Elements).forEach(element => element.convert(dom))
 
+const classesAttributes = [
+  'class',
+  'data-img-class-name',
+  'data-picture-class-name',
+  'data-item-class-name',
+  'data-link-class-name',
+]
 const convertClasses = (dom) =>
   dom.querySelectorAll('*').forEach((element) => {
-    ['class', 'data-img-class-name', 'data-picture-class-name'].forEach((attribute) => {
+    classesAttributes.forEach((attribute) => {
       if (element.attributes[attribute] && element.attributes[attribute].value) {
         const classes = element.attributes[attribute].value
           .split(' ')

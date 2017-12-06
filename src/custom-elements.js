@@ -6,6 +6,8 @@ class AppImage extends HTMLElement {}
 window.customElements.define('app-image', AppImage)
 class AppButton extends HTMLElement {}
 window.customElements.define('app-button', AppButton)
+class AppMenu extends HTMLElement {}
+window.customElements.define('app-menu', AppMenu)
 
 let existingElements = []
 
@@ -13,8 +15,8 @@ export const getExistingElements = () => existingElements
 
 export const clearElements = () => (existingElements.length = 0)
 
-const findElements = (component, tags) => tags.reduce((acc, tag) => {
-  return [...acc, ...Array.from(component.getElementsByTagName(tag))]
+const findElements = (component, selectors) => selectors.reduce((acc, selector) => {
+  return [...acc, ...Array.from(component.querySelectorAll(selector))]
 }, [])
 
 const covertClasses = (classNames) => {
@@ -28,7 +30,7 @@ const covertClasses = (classNames) => {
 export const Elements = {
   Text: {
     convert: (dom) => {
-      const elements = findElements(dom, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small'])
+      const elements = findElements(dom, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small', 'strong', 'quote'])
 
       elements.length && existingElements.push('Text')
 
@@ -68,6 +70,49 @@ export const Elements = {
         })
         const parentNode = element.parentElement
         parentNode.replaceChild(imageElement, element)
+      })
+    }
+  },
+  Menu: {
+    convert: (dom) => {
+      const elements = findElements(dom, ['[data-wm-component="menu"]'])
+
+      elements.length && existingElements.push('Menu')
+
+      elements.forEach((element, index) => {
+        const menuElement = new AppMenu()
+        if (element.className) {
+          menuElement.className = element.className
+        }
+        if (findElements(element, ['li'])[0].className) {
+          menuElement.dataset.itemClassName = findElements(element, ['li'])[0].className
+        }
+        if (findElements(element, ['a'])[0].className) {
+          menuElement.dataset.linkClassName = findElements(element, ['a'])[0].className
+        }
+        menuElement.dataset.bind = `menu-${index}`
+        content.set(
+          `menu-${index}`,
+          findElements(element, ['a']).map((link, id) =>
+            ({
+              id,
+              metadata: {
+                displayName: link.innerText.trim(),
+                clickAction: {
+                  action: 'page',
+                  target: '_self',
+                  actions: {
+                    page: '',
+                    link: '',
+                    block: ''
+                  }
+                }
+              }
+            })
+          )
+        )
+        const parentNode = element.parentElement
+        parentNode.replaceChild(menuElement, element)
       })
     }
   },
