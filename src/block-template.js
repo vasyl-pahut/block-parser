@@ -33,17 +33,23 @@ const renderCode = ({code, rest}) => {
   )`
 }
 
+const hasImage = () => getExistingElements().includes('Image')
+
+const getElements = () =>
+  getExistingElements().map(el =>
+    el === 'Image' ? '{component: \'Image\', enhancers: [withResources]}' : `'${el}'`).join(', ')
+
 export default ({blockName, code, rest}) => `import classNames from 'classnames'
 import $editor from 'weblium/editor'
 import css from './style.css'
 
-const {enhancers: {withComponents}} = $editor
+const {enhancers: {withComponents}${hasImage() ? ', connectHelpers: {withResources}' : ''}} = $editor
 
-const ${blockName} = ({components: {${getExistingElements().map(el => `${el}`).join(', ')}}}) => ${renderCode({code, rest})}
+const ${blockName} = ({components: {${getExistingElements().join(', ')}}}) => ${renderCode({code, rest})}
 
 ${blockName}.propTypes = {
   components: PropTypes.object.isRequired,
 }
 
-export default withComponents(${getExistingElements().map(el => `'${el}'`).join(', ')})(${blockName})
+export default withComponents(${getElements()})(${blockName})
 `

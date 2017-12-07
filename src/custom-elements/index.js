@@ -7,7 +7,8 @@ import CollectionItem from './collection-item'
 
 let existingElements = []
 
-export const setExistingElement = (element) => existingElements.push(element)
+export const setExistingElement = (element) =>
+  !existingElements.includes(element) && existingElements.push(element)
 
 export const getExistingElements = () => existingElements
 

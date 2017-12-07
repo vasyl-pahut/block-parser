@@ -1584,7 +1584,7 @@ exports.MulticastOperator = MulticastOperator;
 
 let existingElements = [];
 
-const setExistingElement = element => existingElements.push(element);
+const setExistingElement = element => !existingElements.includes(element) && existingElements.push(element);
 /* harmony export (immutable) */ __webpack_exports__["d"] = setExistingElement;
 
 
@@ -30819,19 +30819,23 @@ const renderCode = ({ code, rest }) => {
   )`;
 };
 
+const hasImage = () => Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().includes('Image');
+
+const getElements = () => Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().map(el => el === 'Image' ? '{component: \'Image\', enhancers: [withResources]}' : `'${el}'`).join(', ');
+
 /* harmony default export */ __webpack_exports__["a"] = (({ blockName, code, rest }) => `import classNames from 'classnames'
 import $editor from 'weblium/editor'
 import css from './style.css'
 
-const {enhancers: {withComponents}} = $editor
+const {enhancers: {withComponents}${hasImage() ? ', connectHelpers: {withResources}' : ''}} = $editor
 
-const ${blockName} = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().map(el => `${el}`).join(', ')}}}) => ${renderCode({ code, rest })}
+const ${blockName} = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}}) => ${renderCode({ code, rest })}
 
 ${blockName}.propTypes = {
   components: PropTypes.object.isRequired,
 }
 
-export default withComponents(${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().map(el => `'${el}'`).join(', ')})(${blockName})
+export default withComponents(${getElements()})(${blockName})
 `);
 
 /***/ })
