@@ -1,4 +1,4 @@
-import {findElements} from '../utils'
+import {findElements, createBind} from '../utils'
 import content from '../content'
 import {setExistingElement} from './'
 
@@ -6,7 +6,7 @@ class AppMenu extends HTMLElement {}
 window.customElements.define('app-menu', AppMenu)
 
 const Menu = {
-  convert: (dom) => {
+  convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['[data-wm-component="menu"]'])
 
     elements.length && setExistingElement('Menu')
@@ -22,7 +22,7 @@ const Menu = {
       if (findElements(element, ['a'])[0].className) {
         menuElement.dataset.linkClassName = findElements(element, ['a'])[0].className
       }
-      menuElement.dataset.bind = `menu-${index}`
+      menuElement.dataset.bind = createBind({domBind, elBind: `menu-${index}`})
       content.set(
         `menu-${index}`,
         findElements(element, ['a']).map((link, id) =>

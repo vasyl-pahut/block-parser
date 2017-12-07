@@ -1,4 +1,4 @@
-import {findElements} from '../utils'
+import {findElements, createBind} from '../utils'
 import content from '../content'
 import {setExistingElement} from './'
 
@@ -6,7 +6,7 @@ class AppImage extends HTMLElement {}
 window.customElements.define('app-image', AppImage)
 
 const Image = {
-  convert: (dom) => {
+  convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['picture'])
     
     elements.length && setExistingElement('Image')
@@ -19,9 +19,9 @@ const Image = {
       if (findElements(element, ['img'])[0].className) {
         imageElement.dataset.imgClassName = findElements(element, ['img'])[0].className
       }
-      imageElement.dataset.bind = `image-${index}`
+      imageElement.dataset.bind = createBind({domBind, elBind: `image-${index}`})
       const placeholder = 'https://www.vms.ro/wp-content/uploads/2015/04/mobius-placeholder-2.png'
-      content.set(`image-${index}`, {
+      content.setBind(`${domBind ? domBind + '.' : ''}image-${index}`, {
         src: placeholder,
         alt: findElements(element, ['img'])[0].alt
       })

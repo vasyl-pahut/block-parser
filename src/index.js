@@ -1,3 +1,4 @@
+import _ from 'lodash/fp'
 import {Observable} from 'rxjs/Rx'
 import Clipboard from 'clipboard'
 import {
@@ -6,11 +7,12 @@ import {
 import {
   $blockNameInput, $textarea, $button, $codeOutput, $copyCodeBtn, $copyContentBtn
 } from './dom-elements'
+import {findElements} from './utils'
 import content from './content'
 import BlockTemplate from './block-template'
 
-const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)/igm
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)/igm
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)/igm
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)/igm
 
 const replaceTags = (match) => {
   const tag = match.split('-')[1]
@@ -23,9 +25,9 @@ const cleanCode = () => {
   clearElements()
 }
 
-const createCode = (code) => {
+const createCode = ({main, ...rest}) => {
   const blockName = $blockNameInput.value || 'Block'
-  const fullCode = BlockTemplate({blockName, code})
+  const fullCode = BlockTemplate({blockName, code: main, rest})
 
   $codeOutput.innerText = fullCode
   console.log('content: ', {content: content.getAll()})
@@ -34,38 +36,79 @@ const createCode = (code) => {
 
 }
 
-const getJsx = (virtualDom) => {
-  const text = virtualDom.innerHTML
-    .replace(appTags, replaceTags)
-    .replace(closingTags, () => ' />')
-    .replace(/data-bind/igm, () => 'bind')
-    .replace(/data-picture-class-name="/igm, () => 'pictureClassName=')
-    .replace(/data-img-class-name="/igm, () => 'imgClassName=')
-    .replace(/data-item-class-name="/igm, () => 'itemClassName=')
-    .replace(/data-link-class-name="/igm, () => 'linkClassName=')
-    .replace(/class="/igm, () => 'className=')
-    .replace(/cls#}"/igm, () => '}')
-    .replace(/xmlns:xlink/igm, () => 'xmlnsLink')
-    .replace(/xlink:href/igm, () => 'xlinkHref')
-    .replace(/\n/gm, () => '\n\t\t\t')
-    .replace(/\t/gm, () => '  ')
+const getJsx = (doms) => {
+  const newDoms = _.flow(
+    _.pickBy(({render}) => render),
+    _.mapValues(({dom}) =>
+      dom.innerHTML
+        .replace(appTags, replaceTags)
+        .replace(closingTags, () => ' />')
+        .replace(/data-bind/igm, () => 'bind')
+        .replace(/bind="{`/gm, () => 'bind={`')
+        .replace(/`}"/gm, () => '`}')
+        .replace(/data-picture-class-name="/igm, () => 'pictureClassName=')
+        .replace(/data-img-class-name="/igm, () => 'imgClassName=')
+        .replace(/data-item-class-name="/igm, () => 'itemClassName=')
+        .replace(/data-link-class-name="/igm, () => 'linkClassName=')
+        .replace(/data--tag-name/igm, () => 'TagName')
+        .replace(/data--item="/igm, () => 'Item={')
+        .replace(/<app-children-placeholder>/gm, () => '')
+        .replace(/<\/app-children-placeholder>/gm, () => '\n\t')
+        .replace(/class="/igm, () => 'className=')
+        .replace(/css.className/gm, () => 'className')
+        .replace(/cls#}"/igm, () => '}')
+        .replace(/xmlns:xlink/igm, () => 'xmlnsLink')
+        .replace(/xlink:href/igm, () => 'xlinkHref')
+        .replace(/\n/gm, () => '\n\t\t\t')
+        .replace(/\t/gm, () => '  ')
+  ))(doms)
 
-  createCode(text)
+  console.log('get jsx', {
+    doms,
+    newDoms,
+  })
+
+  createCode(newDoms)
 }
 
 
 const start$ = Observable.fromEvent($button, 'click')
   .map(event => $textarea.value)
 
+// magic
 const initializeVirtualDom = (value) => {
   const div = document.createElement('div')
   div.innerHTML = value
+
+  const els = findElements(div, ['[data-wm-component="collection"]'])
+  const newDoms = els.reduce((allDoms, element, index) => {
+    const collectionName = `collection-${index}`
+    const elementChildren = _.flow(
+      _.entries,
+      _.reduce((children, [i, child]) => {
+        const componentName = `col-${index}-item-${i}`
+        const childWrapper = document.createElement('div')
+        childWrapper.appendChild(child)
+        return {
+          ...children,
+          [componentName]: {
+            render: Number(i) === 0,
+            bind: `${collectionName}[${i}]`,
+            dom: childWrapper,
+          }
+        }
+      }, {})
+    )([...element.children])
+    return {...allDoms, ...elementChildren}
+  }, {main: {bind: '', dom: div.children[0], render: true}})
+  console.log('elements: ', {els, newDoms})
   cleanCode()
-  return div
+  return newDoms
 }
 
-const convertElements = (dom) =>
-  Object.values(Elements).forEach(element => element.convert(dom))
+const convertElements = (doms) =>
+  _.forEach(({dom, bind}) => Object.values(Elements).forEach(element => element.convert({dom, bind})))(doms)
+  
 
 const classesAttributes = [
   'class',
@@ -74,21 +117,24 @@ const classesAttributes = [
   'data-item-class-name',
   'data-link-class-name',
 ]
-const convertClasses = (dom) =>
-  dom.querySelectorAll('*').forEach((element) => {
-    classesAttributes.forEach((attribute) => {
-      if (element.attributes[attribute] && element.attributes[attribute].value) {
-        const classes = element.attributes[attribute].value
-          .split(' ')
-          .map(className => className.includes('-') ? `css['${className}']` : `css.${className}`)
-          .join(', ')
-    
-        element.attributes[attribute].value = classes.split(' ').length > 1
-          ? `{classNames(${classes})cls#}`
-          : `{${classes}cls#}`
-      }
+const convertClasses = (doms) =>
+  _.forEach(({dom}) =>
+    dom.querySelectorAll('*').forEach((element) => {
+      classesAttributes.forEach((attribute) => {
+        if (element.attributes[attribute] && element.attributes[attribute].value) {
+          const classes = element.attributes[attribute].value
+            .split(' ')
+            .map(className => className.includes('-') ? `css['${className}']` : `css.${className}`)
+            .join(', ')
+      
+          element.attributes[attribute].value = classes.split(' ').length > 1
+            ? `{classNames(${classes})cls#}`
+            : `{${classes}cls#}`
+        }
+      })
     })
-  })
+  )(doms)
+  
 
 const startConverting$ = start$
   .map(initializeVirtualDom)
