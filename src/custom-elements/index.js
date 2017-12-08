@@ -5,6 +5,7 @@ import Button from './button'
 import Collection from './collection'
 import Slider from './slider'
 import Map from './map'
+import Icon from './icon'
 import CollectionItem from './collection-item'
 
 let existingElements = []
@@ -25,6 +26,7 @@ export const Elements = {
   Image,
   Menu,
   Button,
+  Icon,
   Map,
   CollectionItem,
 }

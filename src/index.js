@@ -11,8 +11,8 @@ import {findElements} from './utils'
 import content from './content'
 import BlockTemplate from './block-template'
 
-const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)|(app-map)/igm
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)|(><\/Map>)/igm
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)|(app-map)|(app-icon)/igm
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)|(><\/Map>)|(><\/Icon>)/igm
 
 const replaceTags = (match) => {
   const tag = match.split('-')[1]
@@ -42,25 +42,25 @@ const getJsx = (doms) => {
     _.mapValues(({dom}) =>
       dom.innerHTML
         .replace(appTags, replaceTags)
-        .replace(closingTags, () => ' />')
-        .replace(/data-bind/igm, () => 'bind')
-        .replace(/bind="{`/gm, () => 'bind={`')
-        .replace(/`}"/gm, () => '`}')
-        .replace(/data-picture-class-name="/igm, () => 'pictureClassName=')
-        .replace(/data-img-class-name="/igm, () => 'imgClassName=')
-        .replace(/data-item-class-name="/igm, () => 'itemClassName=')
-        .replace(/data-link-class-name="/igm, () => 'linkClassName=')
-        .replace(/data--tag-name/igm, () => 'TagName')
-        .replace(/data--item="/igm, () => 'Item={')
-        .replace(/<app-children-placeholder>/gm, () => '')
-        .replace(/<\/app-children-placeholder>/gm, () => '\n\t')
-        .replace(/class="/igm, () => 'className=')
-        .replace(/css.className/gm, () => 'className')
-        .replace(/cls#}"/igm, () => '}')
-        .replace(/xmlns:xlink/igm, () => 'xmlnsLink')
-        .replace(/xlink:href/igm, () => 'xlinkHref')
-        .replace(/\n/gm, () => '\n\t\t\t')
-        .replace(/\t/gm, () => '  ')
+        .replace(closingTags, ' />')
+        .replace(/data-bind/igm, 'bind')
+        .replace(/bind="{`/gm, 'bind={`')
+        .replace(/`}"/gm, '`}')
+        .replace(/data-picture-class-name="/igm, 'pictureClassName=')
+        .replace(/data-img-class-name="/igm, 'imgClassName=')
+        .replace(/data-item-class-name="/igm, 'itemClassName=')
+        .replace(/data-link-class-name="/igm, 'linkClassName=')
+        .replace(/data--tag-name/igm, 'TagName')
+        .replace(/data--item="/igm, 'Item={')
+        .replace(/<app-children-placeholder>/gm, '')
+        .replace(/<\/app-children-placeholder>/gm, '\n\t')
+        .replace(/class="/igm, 'className=')
+        .replace(/css.className/gm, 'className')
+        .replace(/cls#}"/igm, '}')
+        .replace(/xmlns:xlink/igm, 'xmlnsLink')
+        .replace(/xlink:href/igm, 'xlinkHref')
+        .replace(/\n/gm, '\n\t\t\t')
+        .replace(/\t/gm, '  ')
   ))(doms)
 
   console.log('get jsx', {
@@ -105,6 +105,7 @@ const initializeVirtualDom = (value) => {
     )([...element.children])
     return {...allDoms, ...elementChildren}
   }, {main: {bind: '', dom: div.children[0], render: true}})
+
   cleanCode()
   return newDoms
 }
