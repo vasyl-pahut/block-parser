@@ -1500,6 +1500,55 @@ exports.EmptyObservable = EmptyObservable;
 
 /***/ }),
 /* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export existingElements */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text__ = __webpack_require__(473);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(475);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button__ = __webpack_require__(476);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collection__ = __webpack_require__(477);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__slider__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__collection_item__ = __webpack_require__(479);
+
+
+
+
+
+
+
+
+let existingElements = [];
+
+const setExistingElement = element => !existingElements.includes(element) && existingElements.push(element);
+/* harmony export (immutable) */ __webpack_exports__["d"] = setExistingElement;
+
+
+const getExistingElements = () => existingElements;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getExistingElements;
+
+
+const clearElements = () => existingElements.length = 0;
+/* harmony export (immutable) */ __webpack_exports__["b"] = clearElements;
+
+
+
+
+const Elements = {
+  Collection: __WEBPACK_IMPORTED_MODULE_4__collection__["a" /* default */],
+  Slider: __WEBPACK_IMPORTED_MODULE_5__slider__["a" /* default */],
+  Text: __WEBPACK_IMPORTED_MODULE_0__text__["a" /* default */],
+  Image: __WEBPACK_IMPORTED_MODULE_1__image__["a" /* default */],
+  Menu: __WEBPACK_IMPORTED_MODULE_2__menu__["a" /* default */],
+  Button: __WEBPACK_IMPORTED_MODULE_3__button__["a" /* default */],
+  CollectionItem: __WEBPACK_IMPORTED_MODULE_6__collection_item__["a" /* default */]
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = Elements;
+
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1562,52 +1611,6 @@ var MulticastOperator = function () {
 }();
 exports.MulticastOperator = MulticastOperator;
 //# sourceMappingURL=multicast.js.map
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export existingElements */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text__ = __webpack_require__(473);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image__ = __webpack_require__(474);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(475);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button__ = __webpack_require__(476);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collection__ = __webpack_require__(477);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__collection_item__ = __webpack_require__(478);
-
-
-
-
-
-
-
-let existingElements = [];
-
-const setExistingElement = element => !existingElements.includes(element) && existingElements.push(element);
-/* harmony export (immutable) */ __webpack_exports__["d"] = setExistingElement;
-
-
-const getExistingElements = () => existingElements;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getExistingElements;
-
-
-const clearElements = () => existingElements.length = 0;
-/* harmony export (immutable) */ __webpack_exports__["b"] = clearElements;
-
-
-
-
-const Elements = {
-  Collection: __WEBPACK_IMPORTED_MODULE_4__collection__["a" /* default */],
-  Text: __WEBPACK_IMPORTED_MODULE_0__text__["a" /* default */],
-  Image: __WEBPACK_IMPORTED_MODULE_1__image__["a" /* default */],
-  Menu: __WEBPACK_IMPORTED_MODULE_2__menu__["a" /* default */],
-  Button: __WEBPACK_IMPORTED_MODULE_3__button__["a" /* default */],
-  CollectionItem: __WEBPACK_IMPORTED_MODULE_5__collection_item__["a" /* default */]
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = Elements;
-
 
 /***/ }),
 /* 16 */
@@ -11026,7 +11029,7 @@ function plucker(props, length) {
 
 
 var Subject_1 = __webpack_require__(6);
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 /* tslint:enable:max-line-length */
 /**
  * Returns a ConnectableObservable, which is a variety of Observable that waits until its connect method is called
@@ -11057,7 +11060,7 @@ exports.publish = publish;
 
 
 var BehaviorSubject_1 = __webpack_require__(119);
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 /**
  * @param value
  * @return {ConnectableObservable<T>}
@@ -11136,7 +11139,7 @@ exports.BehaviorSubject = BehaviorSubject;
 
 
 var ReplaySubject_1 = __webpack_require__(39);
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 /* tslint:enable:max-line-length */
 function publishReplay(bufferSize, windowTime, selectorOrScheduler, scheduler) {
     if (selectorOrScheduler && typeof selectorOrScheduler !== 'function') {
@@ -11161,7 +11164,7 @@ exports.publishReplay = publishReplay;
 
 
 var AsyncSubject_1 = __webpack_require__(32);
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 function publishLast() {
     return function (source) {
         return multicast_1.multicast(new AsyncSubject_1.AsyncSubject())(source);
@@ -11990,7 +11993,7 @@ var SequenceEqualCompareToSubscriber = function (_super) {
 "use strict";
 
 
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 var refCount_1 = __webpack_require__(58);
 var Subject_1 = __webpack_require__(6);
 function shareSubjectFactory() {
@@ -14787,11 +14790,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_clipboard__ = __webpack_require__(465);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_clipboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_elements__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dom_elements__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_elements__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dom_elements__ = __webpack_require__(480);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__block_template__ = __webpack_require__(480);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__block_template__ = __webpack_require__(481);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -14805,8 +14808,8 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 
-const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)/igm;
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)/igm;
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)/igm;
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)/igm;
 
 const replaceTags = match => {
   const tag = match.split('-')[1];
@@ -14850,24 +14853,24 @@ const initializeVirtualDom = value => {
   const div = document.createElement('div');
   div.innerHTML = value;
 
-  const els = Object(__WEBPACK_IMPORTED_MODULE_5__utils__["b" /* findElements */])(div, ['[data-wm-component="collection"]']);
+  const els = Object(__WEBPACK_IMPORTED_MODULE_5__utils__["b" /* findElements */])(div, ['[data-wm-component="collection"]', '[data-wm-component="slider"]']);
   const newDoms = els.reduce((allDoms, element, index) => {
-    const collectionName = `collection-${index}`;
+    const component = __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.pipe(__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.find(attribute => attribute.name === 'data-wm-component'), __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.get('value'))(element.attributes);
+    const componentName = `${component}-${index}`;
     const elementChildren = __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.flow(__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.entries, __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.reduce((children, [i, child]) => {
-      const componentName = `col-${index}-item-${i}`;
+      const itemKey = `col-${index}-item-${i}`;
       const childWrapper = document.createElement('div');
       childWrapper.appendChild(child);
       return _extends({}, children, {
-        [componentName]: {
+        [itemKey]: {
           render: Number(i) === 0,
-          bind: `${collectionName}[${i}]`,
+          bind: `${componentName}[${i}]`,
           dom: childWrapper
         }
       });
     }, {}))([...element.children]);
     return _extends({}, allDoms, elementChildren);
   }, { main: { bind: '', dom: div.children[0], render: true } });
-  console.log('elements: ', { els, newDoms });
   cleanCode();
   return newDoms;
 };
@@ -25246,7 +25249,7 @@ Observable_1.Observable.prototype.multicast = multicast_1.multicast;
 "use strict";
 
 
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 /* tslint:enable:max-line-length */
 /**
  * Allows source Observable to be subscribed only once with a Subject of choice,
@@ -29576,7 +29579,7 @@ var mergeScan_1 = __webpack_require__(111);
 exports.mergeScan = mergeScan_1.mergeScan;
 var min_1 = __webpack_require__(112);
 exports.min = min_1.min;
-var multicast_1 = __webpack_require__(14);
+var multicast_1 = __webpack_require__(15);
 exports.multicast = multicast_1.multicast;
 var observeOn_1 = __webpack_require__(34);
 exports.observeOn = observeOn_1.observeOn;
@@ -30520,7 +30523,7 @@ module.exports = closest;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1____ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1____ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(17);
 
 
@@ -30553,7 +30556,7 @@ const Text = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
 
 
 
@@ -30596,7 +30599,7 @@ const Image = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
 
 
 
@@ -30652,7 +30655,7 @@ const Menu = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
 
 
 
@@ -30696,7 +30699,7 @@ const Button = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
 
 
 
@@ -30736,6 +30739,48 @@ const Collection = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
+
+
+
+
+class AppSlider extends HTMLElement {}
+window.customElements.define('app-slider', AppSlider);
+
+const Collection = {
+  convert: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="slider"]']);
+
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Collection');
+
+    elements.forEach((element, index) => {
+      const sliderElement = new AppSlider();
+      if (element.className) {
+        sliderElement.className = element.className;
+      }
+      if (element.nodeName.toLowerCase() !== 'div') {
+        sliderElement.dataset.TagName = element.nodeName.toLowerCase();
+      }
+
+      sliderElement.dataset.bind = `slider-${index}`;
+      sliderElement.dataset.Item = 'sliderItemcls#}';
+      __WEBPACK_IMPORTED_MODULE_1__content__["a" /* default */].set(`slider-${index}`, []);
+
+      const parentNode = element.parentElement;
+      parentNode.replaceChild(sliderElement, element);
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Collection);
+
+/***/ }),
+/* 479 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 class ChildrenPlaceholder extends HTMLElement {}
 window.customElements.define('app-children-placeholder', ChildrenPlaceholder);
 
@@ -30753,7 +30798,7 @@ const CollectionItem = {
 /* harmony default export */ __webpack_exports__["a"] = (CollectionItem);
 
 /***/ }),
-/* 479 */
+/* 480 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30777,13 +30822,13 @@ const $copyContentBtn = document.getElementById('clipboard-content');
 
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_elements__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_elements__ = __webpack_require__(14);
 
 
 

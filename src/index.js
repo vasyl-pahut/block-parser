@@ -11,8 +11,8 @@ import {findElements} from './utils'
 import content from './content'
 import BlockTemplate from './block-template'
 
-const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)/igm
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)/igm
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)/igm
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)/igm
 
 const replaceTags = (match) => {
   const tag = match.split('-')[1]
@@ -80,20 +80,24 @@ const initializeVirtualDom = (value) => {
   const div = document.createElement('div')
   div.innerHTML = value
 
-  const els = findElements(div, ['[data-wm-component="collection"]'])
+  const els = findElements(div, ['[data-wm-component="collection"]', '[data-wm-component="slider"]'])
   const newDoms = els.reduce((allDoms, element, index) => {
-    const collectionName = `collection-${index}`
+    const component = _.pipe(
+      _.find((attribute) => attribute.name === 'data-wm-component'),
+      _.get('value')
+    )(element.attributes)
+    const componentName = `${component}-${index}`
     const elementChildren = _.flow(
       _.entries,
       _.reduce((children, [i, child]) => {
-        const componentName = `col-${index}-item-${i}`
+        const itemKey = `col-${index}-item-${i}`
         const childWrapper = document.createElement('div')
         childWrapper.appendChild(child)
         return {
           ...children,
-          [componentName]: {
+          [itemKey]: {
             render: Number(i) === 0,
-            bind: `${collectionName}[${i}]`,
+            bind: `${componentName}[${i}]`,
             dom: childWrapper,
           }
         }
@@ -101,7 +105,6 @@ const initializeVirtualDom = (value) => {
     )([...element.children])
     return {...allDoms, ...elementChildren}
   }, {main: {bind: '', dom: div.children[0], render: true}})
-  console.log('elements: ', {els, newDoms})
   cleanCode()
   return newDoms
 }

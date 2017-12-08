@@ -3,6 +3,7 @@ import Image from './image'
 import Menu from './menu'
 import Button from './button'
 import Collection from './collection'
+import Slider from './slider'
 import CollectionItem from './collection-item'
 
 let existingElements = []
@@ -18,6 +19,7 @@ export {existingElements}
 
 export const Elements = {
   Collection,
+  Slider,
   Text,
   Image,
   Menu,
