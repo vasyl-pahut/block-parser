@@ -1281,6 +1281,58 @@ exports.isArray = Array.isArray || function (x) {
 
 /***/ }),
 /* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export existingElements */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text__ = __webpack_require__(473);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(475);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button__ = __webpack_require__(476);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collection__ = __webpack_require__(477);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__slider__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__map__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__collection_item__ = __webpack_require__(480);
+
+
+
+
+
+
+
+
+
+let existingElements = [];
+
+const setExistingElement = element => !existingElements.includes(element) && existingElements.push(element);
+/* harmony export (immutable) */ __webpack_exports__["d"] = setExistingElement;
+
+
+const getExistingElements = () => existingElements;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getExistingElements;
+
+
+const clearElements = () => existingElements.length = 0;
+/* harmony export (immutable) */ __webpack_exports__["b"] = clearElements;
+
+
+
+
+const Elements = {
+  Collection: __WEBPACK_IMPORTED_MODULE_4__collection__["a" /* default */],
+  Slider: __WEBPACK_IMPORTED_MODULE_5__slider__["a" /* default */],
+  Text: __WEBPACK_IMPORTED_MODULE_0__text__["a" /* default */],
+  Image: __WEBPACK_IMPORTED_MODULE_1__image__["a" /* default */],
+  Menu: __WEBPACK_IMPORTED_MODULE_2__menu__["a" /* default */],
+  Button: __WEBPACK_IMPORTED_MODULE_3__button__["a" /* default */],
+  Map: __WEBPACK_IMPORTED_MODULE_6__map__["a" /* default */],
+  CollectionItem: __WEBPACK_IMPORTED_MODULE_7__collection_item__["a" /* default */]
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = Elements;
+
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1295,7 +1347,7 @@ var __extends = this && this.__extends || function (d, b) {
 };
 var Observable_1 = __webpack_require__(0);
 var ScalarObservable_1 = __webpack_require__(46);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 var isScheduler_1 = __webpack_require__(10);
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -1410,7 +1462,7 @@ exports.ArrayObservable = ArrayObservable;
 //# sourceMappingURL=ArrayObservable.js.map
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1499,56 +1551,47 @@ exports.EmptyObservable = EmptyObservable;
 //# sourceMappingURL=EmptyObservable.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export existingElements */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text__ = __webpack_require__(473);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image__ = __webpack_require__(474);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(475);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button__ = __webpack_require__(476);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collection__ = __webpack_require__(477);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__slider__ = __webpack_require__(478);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__collection_item__ = __webpack_require__(479);
+const findElements = (component, selectors) => selectors.reduce((acc, selector) => {
+  return [...acc, ...Array.from(component.querySelectorAll(selector))];
+}, []);
+/* harmony export (immutable) */ __webpack_exports__["b"] = findElements;
 
 
-
-
-
-
-
-
-let existingElements = [];
-
-const setExistingElement = element => !existingElements.includes(element) && existingElements.push(element);
-/* harmony export (immutable) */ __webpack_exports__["d"] = setExistingElement;
-
-
-const getExistingElements = () => existingElements;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getExistingElements;
-
-
-const clearElements = () => existingElements.length = 0;
-/* harmony export (immutable) */ __webpack_exports__["b"] = clearElements;
-
-
-
-
-const Elements = {
-  Collection: __WEBPACK_IMPORTED_MODULE_4__collection__["a" /* default */],
-  Slider: __WEBPACK_IMPORTED_MODULE_5__slider__["a" /* default */],
-  Text: __WEBPACK_IMPORTED_MODULE_0__text__["a" /* default */],
-  Image: __WEBPACK_IMPORTED_MODULE_1__image__["a" /* default */],
-  Menu: __WEBPACK_IMPORTED_MODULE_2__menu__["a" /* default */],
-  Button: __WEBPACK_IMPORTED_MODULE_3__button__["a" /* default */],
-  CollectionItem: __WEBPACK_IMPORTED_MODULE_6__collection_item__["a" /* default */]
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = Elements;
+const createBind = ({ domBind, elBind }) => domBind.length ? `{\`${domBind.replace(/\[0\]/gm, () => '[${index}]')}.${elBind}\`}` : elBind;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createBind;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
+
+
+let content = {};
+
+const get = key => content[key];
+const getAll = () => content;
+const set = (key, value) => content[key] = value;
+const setBind = (key, value) => content = __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.set(key, value, content);
+const clear = () => content = {};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  get,
+  getAll,
+  set,
+  setBind,
+  clear
+});
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1611,46 +1654,6 @@ var MulticastOperator = function () {
 }();
 exports.MulticastOperator = MulticastOperator;
 //# sourceMappingURL=multicast.js.map
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const findElements = (component, selectors) => selectors.reduce((acc, selector) => {
-  return [...acc, ...Array.from(component.querySelectorAll(selector))];
-}, []);
-/* harmony export (immutable) */ __webpack_exports__["b"] = findElements;
-
-
-const createBind = ({ domBind, elBind }) => domBind.length ? `{\`${domBind.replace(/\[0\]/gm, () => '[${index}]')}.${elBind}\`}` : elBind;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createBind;
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
-
-
-let content = {};
-
-const get = key => content[key];
-const getAll = () => content;
-const set = (key, value) => content[key] = value;
-const setBind = (key, value) => content = __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.set(key, value, content);
-const clear = () => content = {};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  get,
-  getAll,
-  set,
-  setBind,
-  clear
-});
 
 /***/ }),
 /* 18 */
@@ -2745,7 +2748,7 @@ var __extends = this && this.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var isArray_1 = __webpack_require__(11);
 var OuterSubscriber_1 = __webpack_require__(2);
 var subscribeToResult_1 = __webpack_require__(3);
@@ -3089,7 +3092,7 @@ exports.mergeAll = mergeAll;
 
 
 var Observable_1 = __webpack_require__(0);
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var isScheduler_1 = __webpack_require__(10);
 var mergeAll_1 = __webpack_require__(35);
 /* tslint:enable:max-line-length */
@@ -3204,7 +3207,7 @@ var __extends = this && this.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var isArray_1 = __webpack_require__(11);
 var Subscriber_1 = __webpack_require__(1);
 var OuterSubscriber_1 = __webpack_require__(2);
@@ -4008,7 +4011,7 @@ var __extends = this && this.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var isArray_1 = __webpack_require__(11);
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var OuterSubscriber_1 = __webpack_require__(2);
 var subscribeToResult_1 = __webpack_require__(3);
 function race() {
@@ -5005,7 +5008,7 @@ var __extends = this && this.__extends || function (d, b) {
 };
 var Subscriber_1 = __webpack_require__(1);
 var ArgumentOutOfRangeError_1 = __webpack_require__(26);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 /**
  * Emits only the last `count` values emitted by the source Observable.
  *
@@ -5529,7 +5532,7 @@ exports.isPromise = isPromise;
 "use strict";
 
 
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 exports.of = ArrayObservable_1.ArrayObservable.of;
 //# sourceMappingURL=of.js.map
 
@@ -5563,7 +5566,7 @@ var isArrayLike_1 = __webpack_require__(65);
 var isPromise_1 = __webpack_require__(66);
 var PromiseObservable_1 = __webpack_require__(70);
 var IteratorObservable_1 = __webpack_require__(181);
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var ArrayLikeObservable_1 = __webpack_require__(182);
 var iterator_1 = __webpack_require__(18);
 var Observable_1 = __webpack_require__(0);
@@ -11029,7 +11032,7 @@ function plucker(props, length) {
 
 
 var Subject_1 = __webpack_require__(6);
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 /* tslint:enable:max-line-length */
 /**
  * Returns a ConnectableObservable, which is a variety of Observable that waits until its connect method is called
@@ -11060,7 +11063,7 @@ exports.publish = publish;
 
 
 var BehaviorSubject_1 = __webpack_require__(119);
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 /**
  * @param value
  * @return {ConnectableObservable<T>}
@@ -11139,7 +11142,7 @@ exports.BehaviorSubject = BehaviorSubject;
 
 
 var ReplaySubject_1 = __webpack_require__(39);
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 /* tslint:enable:max-line-length */
 function publishReplay(bufferSize, windowTime, selectorOrScheduler, scheduler) {
     if (selectorOrScheduler && typeof selectorOrScheduler !== 'function') {
@@ -11164,7 +11167,7 @@ exports.publishReplay = publishReplay;
 
 
 var AsyncSubject_1 = __webpack_require__(32);
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 function publishLast() {
     return function (source) {
         return multicast_1.multicast(new AsyncSubject_1.AsyncSubject())(source);
@@ -11223,7 +11226,7 @@ var __extends = this && this.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(1);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 /**
  * Returns an Observable that repeats the stream of items emitted by the source Observable at most count times.
  *
@@ -11993,7 +11996,7 @@ var SequenceEqualCompareToSubscriber = function (_super) {
 "use strict";
 
 
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 var refCount_1 = __webpack_require__(58);
 var Subject_1 = __webpack_require__(6);
 function shareSubjectFactory() {
@@ -12504,9 +12507,9 @@ var SkipWhileSubscriber = function (_super) {
 "use strict";
 
 
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var ScalarObservable_1 = __webpack_require__(46);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 var concat_1 = __webpack_require__(19);
 var isScheduler_1 = __webpack_require__(10);
 /* tslint:enable:max-line-length */
@@ -12820,7 +12823,7 @@ var __extends = this && this.__extends || function (d, b) {
 };
 var Subscriber_1 = __webpack_require__(1);
 var ArgumentOutOfRangeError_1 = __webpack_require__(26);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 /**
  * Emits only the first `count` values emitted by the source Observable.
  *
@@ -14790,11 +14793,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_clipboard__ = __webpack_require__(465);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_clipboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_elements__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dom_elements__ = __webpack_require__(480);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__block_template__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_elements__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dom_elements__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__block_template__ = __webpack_require__(482);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -14808,8 +14811,8 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 
-const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)/igm;
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)/igm;
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)|(app-map)/igm;
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)|(><\/Map>)/igm;
 
 const replaceTags = match => {
   const tag = match.split('-')[1];
@@ -18774,7 +18777,7 @@ Observable_1.Observable.combineLatest = combineLatest_1.combineLatest;
 
 var isScheduler_1 = __webpack_require__(10);
 var isArray_1 = __webpack_require__(11);
-var ArrayObservable_1 = __webpack_require__(12);
+var ArrayObservable_1 = __webpack_require__(13);
 var combineLatest_1 = __webpack_require__(33);
 /* tslint:enable:max-line-length */
 /**
@@ -19168,7 +19171,7 @@ var __extends = this && this.__extends || function (d, b) {
 };
 var Observable_1 = __webpack_require__(0);
 var ScalarObservable_1 = __webpack_require__(46);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -19382,7 +19385,7 @@ Observable_1.Observable.empty = empty_1.empty;
 "use strict";
 
 
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 exports.empty = EmptyObservable_1.EmptyObservable.create;
 //# sourceMappingURL=empty.js.map
 
@@ -19424,7 +19427,7 @@ var __extends = this && this.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(0);
-var EmptyObservable_1 = __webpack_require__(13);
+var EmptyObservable_1 = __webpack_require__(14);
 var isArray_1 = __webpack_require__(11);
 var subscribeToResult_1 = __webpack_require__(3);
 var OuterSubscriber_1 = __webpack_require__(2);
@@ -25249,7 +25252,7 @@ Observable_1.Observable.prototype.multicast = multicast_1.multicast;
 "use strict";
 
 
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 /* tslint:enable:max-line-length */
 /**
  * Allows source Observable to be subscribed only once with a Subject of choice,
@@ -29579,7 +29582,7 @@ var mergeScan_1 = __webpack_require__(111);
 exports.mergeScan = mergeScan_1.mergeScan;
 var min_1 = __webpack_require__(112);
 exports.min = min_1.min;
-var multicast_1 = __webpack_require__(15);
+var multicast_1 = __webpack_require__(17);
 exports.multicast = multicast_1.multicast;
 var observeOn_1 = __webpack_require__(34);
 exports.observeOn = observeOn_1.observeOn;
@@ -30522,9 +30525,9 @@ module.exports = closest;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1____ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1____ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(16);
 
 
 
@@ -30554,9 +30557,9 @@ const Text = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
 
@@ -30597,9 +30600,9 @@ const Image = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
 
@@ -30653,9 +30656,9 @@ const Menu = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
 
@@ -30697,9 +30700,9 @@ const Button = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
 
@@ -30739,9 +30742,9 @@ const Collection = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
 
@@ -30749,11 +30752,11 @@ const Collection = {
 class AppSlider extends HTMLElement {}
 window.customElements.define('app-slider', AppSlider);
 
-const Collection = {
+const Slider = {
   convert: ({ dom }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="slider"]']);
 
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Collection');
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Slider');
 
     elements.forEach((element, index) => {
       const sliderElement = new AppSlider();
@@ -30774,10 +30777,67 @@ const Collection = {
   }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Collection);
+/* harmony default export */ __webpack_exports__["a"] = (Slider);
 
 /***/ }),
 /* 479 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
+
+
+
+
+class AppMap extends HTMLElement {}
+window.customElements.define('app-map', AppMap);
+
+const Map = {
+  convert: ({ dom, bind: domBind }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="map"]']);
+
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Map');
+
+    elements.forEach((element, index) => {
+      const mapElement = new AppMap();
+      if (element.className) {
+        mapElement.className = element.className;
+      }
+      mapElement.dataset.bind = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* createBind */])({ domBind, elBind: `map-${index}` });
+      __WEBPACK_IMPORTED_MODULE_1__content__["a" /* default */].setBind(`${domBind ? domBind + '.' : ''}map-${index}`, {
+        preset: 'default',
+        height: '100%',
+        center: {
+          lat: 50.4589633,
+          lng: 30.5247585
+        },
+        zoom: 18,
+        activeMarker: '2aceeb6f-623c-41f8-b0d3-6f0f085e8e48',
+        disableDefaultUI: true,
+        allowZoomOnScroll: false,
+        markers: [{
+          position: {
+            lat: 50.4589633,
+            lng: 30.5247585
+          },
+          name: 'Best Marker',
+          description: 'This is marker description',
+          address: 'Kiev Poshtova Ploshcha',
+          id: '2aceeb6f-623c-41f8-b0d3-6f0f085e8e48'
+        }]
+      });
+      const parentNode = element.parentElement;
+      parentNode.replaceChild(mapElement, element);
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Map);
+
+/***/ }),
+/* 480 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30798,7 +30858,7 @@ const CollectionItem = {
 /* harmony default export */ __webpack_exports__["a"] = (CollectionItem);
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30822,13 +30882,13 @@ const $copyContentBtn = document.getElementById('clipboard-content');
 
 
 /***/ }),
-/* 481 */
+/* 482 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_elements__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_elements__ = __webpack_require__(12);
 
 
 

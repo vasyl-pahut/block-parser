@@ -5,11 +5,11 @@ import {setExistingElement} from './'
 class AppSlider extends HTMLElement {}
 window.customElements.define('app-slider', AppSlider)
 
-const Collection = {
+const Slider = {
   convert: ({dom}) => {
     const elements = findElements(dom, ['[data-wm-component="slider"]'])
 
-    elements.length && setExistingElement('Collection')
+    elements.length && setExistingElement('Slider')
 
     elements.forEach((element, index) => {
       const sliderElement = new AppSlider()
@@ -30,4 +30,4 @@ const Collection = {
   }
 }
 
-export default Collection
+export default Slider

@@ -11,8 +11,8 @@ import {findElements} from './utils'
 import content from './content'
 import BlockTemplate from './block-template'
 
-const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)/igm
-const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)/igm
+const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)|(app-map)/igm
+const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)|(><\/Map>)/igm
 
 const replaceTags = (match) => {
   const tag = match.split('-')[1]
