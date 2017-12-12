@@ -30917,7 +30917,7 @@ const CollectionItem = {
     if (bind.includes('collection')) {
       const childrenPlaceholder = new ChildrenPlaceholder();
       childrenPlaceholder.innerText = '{children}';
-      dom.children[0].prependChild(childrenPlaceholder);
+      dom.children[0].prepend(childrenPlaceholder);
       dom.children[0].classList.add('className');
     }
   }
