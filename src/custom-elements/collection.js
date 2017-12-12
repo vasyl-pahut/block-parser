@@ -1,15 +1,17 @@
 import {findElements} from '../utils'
 import content from '../content'
-import {setExistingElement} from './'
+import {setExistingElement, getExistingElements} from './'
 
 class AppCollection extends HTMLElement {}
 window.customElements.define('app-collection', AppCollection)
 
 const Collection = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['[data-wm-component="collection"]'])
+    elements.length && setExistingElement('Collection')
+  },
   convert: ({dom}) => {
     const elements = findElements(dom, ['[data-wm-component="collection"]'])
-
-    elements.length && setExistingElement('Collection')
 
     elements.forEach((element, index) => {
       const collectionElement = new AppCollection()
@@ -21,7 +23,7 @@ const Collection = {
       }
 
       collectionElement.dataset.bind = `collection-${index}`
-      collectionElement.dataset.Item = 'collectionItemcls#}'
+      collectionElement.dataset.Item = `CollectionItem({components: {${getExistingElements().join(', ')}}})cls#}`
       content.set(`collection-${index}`, [])
       // itemsDom.set(`collection-${index}`, element.children[0])
       const parentNode = element.parentElement

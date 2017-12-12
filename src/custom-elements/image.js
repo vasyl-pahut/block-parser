@@ -6,10 +6,12 @@ class AppImage extends HTMLElement {}
 window.customElements.define('app-image', AppImage)
 
 const Image = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['picture'])
+    elements.length && setExistingElement('Image')
+  },
   convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['picture'])
-    
-    elements.length && setExistingElement('Image')
     
     elements.forEach((element, index) => {
       const imageElement = new AppImage()

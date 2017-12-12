@@ -3,34 +3,26 @@ import {getExistingElements} from './custom-elements'
 
 const renderCode = ({code, rest}) => {
   if (!_.isEmpty(rest)) {
-    return `{
-      ${_.reduce((text, element) => {
-        return `${text}
-        const collectionItem = ({index, children, className}) => (
-          ${element}
-        )
-        
-        collectionItem.propTypes = {
-          index: PropTypes.number.isRequired,
-          className: PropTypes.string,
-          children: PropTypes.node,
-        }
-
-        collectionItem.defaultProps = {
-          className: '',
-          children: null,
-        }
-        `
-      }, '', rest)}
-
-      return (
-        ${code}
+    return `${_.reduce((text, element) => {
+      return `${text}
+      const CollectionItem = ({components: {${getExistingElements().join(', ')}}}) => ({index, children, className}) => (
+        ${element}
       )
-    }`
+      
+      CollectionItem.propTypes = {
+        index: PropTypes.number.isRequired,
+        className: PropTypes.string,
+        children: PropTypes.node,
+      }
+
+      CollectionItem.defaultProps = {
+        className: '',
+        children: null,
+      }
+      `
+    }, '', rest)}`
   }
-  return `(
-    ${code}
-  )`
+  return ''
 }
 
 const hasImage = () => getExistingElements().includes('Image')
@@ -45,7 +37,11 @@ import css from './style.css'
 
 const {enhancers: {withComponents}${hasImage() ? ', connectHelpers: {withResources}' : ''}} = $editor
 
-const ${blockName} = ({components: {${getExistingElements().join(', ')}}}) => ${renderCode({code, rest})}
+${renderCode({code, rest})}
+
+const ${blockName} = ({components: {${getExistingElements().join(', ')}}}) => (
+  ${code}
+)
 
 ${blockName}.propTypes = {
   components: PropTypes.object.isRequired,

@@ -6,10 +6,12 @@ class AppMenu extends HTMLElement {}
 window.customElements.define('app-menu', AppMenu)
 
 const Menu = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['[data-wm-component="menu"]'])
+    elements.length && setExistingElement('Menu')
+  },
   convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['[data-wm-component="menu"]'])
-
-    elements.length && setExistingElement('Menu')
 
     elements.forEach((element, index) => {
       const menuElement = new AppMenu()

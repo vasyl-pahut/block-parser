@@ -6,9 +6,12 @@ class AppText extends HTMLElement {}
 window.customElements.define('app-text', AppText)
 
 const Text = {
-  convert: ({dom, bind}) => {
+  getElements: ({dom}) => {
     const elements = findElements(dom, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small', 'strong', 'quote'])
     elements.length && setExistingElement('Text')
+  },
+  convert: ({dom, bind}) => {
+    const elements = findElements(dom, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small', 'strong', 'quote'])
 
     elements.forEach((element, index) => {
       const textElement = new AppText()

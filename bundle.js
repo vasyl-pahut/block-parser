@@ -14876,11 +14876,13 @@ const initializeVirtualDom = value => {
       });
     }, {}))([...element.children]);
     return _extends({}, allDoms, elementChildren);
-  }, { main: { bind: '', dom: div.children[0], render: true } });
+  }, { main: { bind: '', dom: div, render: true } });
 
   cleanCode();
   return newDoms;
 };
+
+const storeExistingElements = doms => __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.forEach(({ dom, bind }) => Object.values(__WEBPACK_IMPORTED_MODULE_3__custom_elements__["a" /* Elements */]).forEach(element => element.getElements({ dom })))(doms);
 
 const convertElements = doms => __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.forEach(({ dom, bind }) => Object.values(__WEBPACK_IMPORTED_MODULE_3__custom_elements__["a" /* Elements */]).forEach(element => element.convert({ dom, bind })))(doms);
 
@@ -14895,7 +14897,7 @@ const convertClasses = doms => __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a
   });
 }))(doms);
 
-const startConverting$ = start$.map(initializeVirtualDom).do(convertElements).do(convertClasses).subscribe(getJsx);
+const startConverting$ = start$.map(initializeVirtualDom).do(storeExistingElements).do(convertElements).do(convertClasses).subscribe(getJsx);
 
 /***/ }),
 /* 164 */
@@ -30540,9 +30542,12 @@ class AppText extends HTMLElement {}
 window.customElements.define('app-text', AppText);
 
 const Text = {
-  convert: ({ dom, bind }) => {
+  getElements: ({ dom }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small', 'strong', 'quote']);
     elements.length && Object(__WEBPACK_IMPORTED_MODULE_1____["d" /* setExistingElement */])('Text');
+  },
+  convert: ({ dom, bind }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small', 'strong', 'quote']);
 
     elements.forEach((element, index) => {
       const textElement = new AppText();
@@ -30572,10 +30577,12 @@ class AppImage extends HTMLElement {}
 window.customElements.define('app-image', AppImage);
 
 const Image = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['picture']);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Image');
+  },
   convert: ({ dom, bind: domBind }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['picture']);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Image');
 
     elements.forEach((element, index) => {
       const imageElement = new AppImage();
@@ -30615,10 +30622,12 @@ class AppMenu extends HTMLElement {}
 window.customElements.define('app-menu', AppMenu);
 
 const Menu = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="menu"]']);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Menu');
+  },
   convert: ({ dom, bind: domBind }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="menu"]']);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Menu');
 
     elements.forEach((element, index) => {
       const menuElement = new AppMenu();
@@ -30671,10 +30680,12 @@ class AppButton extends HTMLElement {}
 window.customElements.define('app-button', AppButton);
 
 const Button = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['button', 'a']).filter(element => !element.childElementCount);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Button');
+  },
   convert: ({ dom, bind: domBind }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['button', 'a']).filter(element => !element.childElementCount);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Button');
 
     elements.forEach((element, index) => {
       const buttonElement = new AppButton();
@@ -30715,10 +30726,12 @@ class AppCollection extends HTMLElement {}
 window.customElements.define('app-collection', AppCollection);
 
 const Collection = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="collection"]']);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Collection');
+  },
   convert: ({ dom }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="collection"]']);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Collection');
 
     elements.forEach((element, index) => {
       const collectionElement = new AppCollection();
@@ -30730,7 +30743,7 @@ const Collection = {
       }
 
       collectionElement.dataset.bind = `collection-${index}`;
-      collectionElement.dataset.Item = 'collectionItemcls#}';
+      collectionElement.dataset.Item = `CollectionItem({components: {${Object(__WEBPACK_IMPORTED_MODULE_2____["c" /* getExistingElements */])().join(', ')}}})cls#}`;
       __WEBPACK_IMPORTED_MODULE_1__content__["a" /* default */].set(`collection-${index}`, []);
       // itemsDom.set(`collection-${index}`, element.children[0])
       const parentNode = element.parentElement;
@@ -30757,10 +30770,12 @@ class AppSlider extends HTMLElement {}
 window.customElements.define('app-slider', AppSlider);
 
 const Slider = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="slider"]']);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Slider');
+  },
   convert: ({ dom }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="slider"]']);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Slider');
 
     elements.forEach((element, index) => {
       const sliderElement = new AppSlider();
@@ -30799,10 +30814,12 @@ class AppMap extends HTMLElement {}
 window.customElements.define('app-map', AppMap);
 
 const Map = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="map"]']);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Map');
+  },
   convert: ({ dom, bind: domBind }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* findElements */])(dom, ['[data-wm-component="map"]']);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_2____["d" /* setExistingElement */])('Map');
 
     elements.forEach((element, index) => {
       const mapElement = new AppMap();
@@ -30859,10 +30876,12 @@ class AppIcon extends HTMLElement {}
 window.customElements.define('app-icon', AppIcon);
 
 const Icon = {
+  getElements: ({ dom }) => {
+    const elements = Object(__WEBPACK_IMPORTED_MODULE_1__utils__["b" /* findElements */])(dom, ['[data-wm-component="icon"]']);
+    elements.length && Object(__WEBPACK_IMPORTED_MODULE_3____["d" /* setExistingElement */])('Icon');
+  },
   convert: ({ dom, bind: domBind }) => {
     const elements = Object(__WEBPACK_IMPORTED_MODULE_1__utils__["b" /* findElements */])(dom, ['[data-wm-component="icon"]']);
-
-    elements.length && Object(__WEBPACK_IMPORTED_MODULE_3____["d" /* setExistingElement */])('Icon');
 
     elements.forEach((element, index) => {
       const iconElement = new AppIcon();
@@ -30893,6 +30912,7 @@ class ChildrenPlaceholder extends HTMLElement {}
 window.customElements.define('app-children-placeholder', ChildrenPlaceholder);
 
 const CollectionItem = {
+  getElements: () => null,
   convert: ({ dom, bind }) => {
     if (bind.includes('collection')) {
       const childrenPlaceholder = new ChildrenPlaceholder();
@@ -30942,34 +30962,26 @@ const $copyContentBtn = document.getElementById('clipboard-content');
 
 const renderCode = ({ code, rest }) => {
   if (!__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.isEmpty(rest)) {
-    return `{
-      ${__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.reduce((text, element) => {
+    return `${__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.reduce((text, element) => {
       return `${text}
-        const collectionItem = ({index, children, className}) => (
-          ${element}
-        )
-        
-        collectionItem.propTypes = {
-          index: PropTypes.number.isRequired,
-          className: PropTypes.string,
-          children: PropTypes.node,
-        }
-
-        collectionItem.defaultProps = {
-          className: '',
-          children: null,
-        }
-        `;
-    }, '', rest)}
-
-      return (
-        ${code}
+      const CollectionItem = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}}) => ({index, children, className}) => (
+        ${element}
       )
-    }`;
+      
+      CollectionItem.propTypes = {
+        index: PropTypes.number.isRequired,
+        className: PropTypes.string,
+        children: PropTypes.node,
+      }
+
+      CollectionItem.defaultProps = {
+        className: '',
+        children: null,
+      }
+      `;
+    }, '', rest)}`;
   }
-  return `(
-    ${code}
-  )`;
+  return '';
 };
 
 const hasImage = () => Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().includes('Image');
@@ -30982,7 +30994,11 @@ import css from './style.css'
 
 const {enhancers: {withComponents}${hasImage() ? ', connectHelpers: {withResources}' : ''}} = $editor
 
-const ${blockName} = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}}) => ${renderCode({ code, rest })}
+${renderCode({ code, rest })}
+
+const ${blockName} = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}}) => (
+  ${code}
+)
 
 ${blockName}.propTypes = {
   components: PropTypes.object.isRequired,

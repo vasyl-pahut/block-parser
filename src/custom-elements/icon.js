@@ -7,10 +7,12 @@ class AppIcon extends HTMLElement {}
 window.customElements.define('app-icon', AppIcon)
 
 const Icon = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['[data-wm-component="icon"]'])
+    elements.length && setExistingElement('Icon')
+  },
   convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['[data-wm-component="icon"]'])
-
-    elements.length && setExistingElement('Icon')
 
     elements.forEach((element, index) => {
       const iconElement = new AppIcon()

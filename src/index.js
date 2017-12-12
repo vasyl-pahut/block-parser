@@ -104,11 +104,15 @@ const initializeVirtualDom = (value) => {
       }, {})
     )([...element.children])
     return {...allDoms, ...elementChildren}
-  }, {main: {bind: '', dom: div.children[0], render: true}})
+  }, {main: {bind: '', dom: div, render: true}})
 
   cleanCode()
   return newDoms
 }
+
+const storeExistingElements = (doms) =>
+  _.forEach(({dom, bind}) =>
+    Object.values(Elements).forEach(element => element.getElements({dom})))(doms)
 
 const convertElements = (doms) =>
   _.forEach(({dom, bind}) => Object.values(Elements).forEach(element => element.convert({dom, bind})))(doms)
@@ -142,6 +146,7 @@ const convertClasses = (doms) =>
 
 const startConverting$ = start$
   .map(initializeVirtualDom)
+  .do(storeExistingElements)
   .do(convertElements)
   .do(convertClasses)
   .subscribe(getJsx)

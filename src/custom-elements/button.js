@@ -6,10 +6,12 @@ class AppButton extends HTMLElement {}
 window.customElements.define('app-button', AppButton)
 
 const Button = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['button', 'a']).filter(element => !element.childElementCount)
+    elements.length && setExistingElement('Button')
+  },
   convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['button', 'a']).filter(element => !element.childElementCount)
-
-    elements.length && setExistingElement('Button')
 
     elements.forEach((element, index) => {
       const buttonElement = new AppButton()

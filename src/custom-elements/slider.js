@@ -6,10 +6,12 @@ class AppSlider extends HTMLElement {}
 window.customElements.define('app-slider', AppSlider)
 
 const Slider = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['[data-wm-component="slider"]'])
+    elements.length && setExistingElement('Slider')
+  },
   convert: ({dom}) => {
     const elements = findElements(dom, ['[data-wm-component="slider"]'])
-
-    elements.length && setExistingElement('Slider')
 
     elements.forEach((element, index) => {
       const sliderElement = new AppSlider()

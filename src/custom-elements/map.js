@@ -6,10 +6,12 @@ class AppMap extends HTMLElement {}
 window.customElements.define('app-map', AppMap)
 
 const Map = {
+  getElements: ({dom}) => {
+    const elements = findElements(dom, ['[data-wm-component="map"]'])
+    elements.length && setExistingElement('Map')
+  },
   convert: ({dom, bind: domBind}) => {
     const elements = findElements(dom, ['[data-wm-component="map"]'])
-
-    elements.length && setExistingElement('Map')
 
     elements.forEach((element, index) => {
       const mapElement = new AppMap()
