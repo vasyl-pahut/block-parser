@@ -30787,7 +30787,7 @@ const Slider = {
       }
 
       sliderElement.dataset.bind = `slider-${index}`;
-      sliderElement.dataset.Item = 'sliderItemcls#}';
+      sliderElement.dataset.Item = `SliderItem({components: {${Object(__WEBPACK_IMPORTED_MODULE_2____["c" /* getExistingElements */])().join(', ')}}})cls#}`;
       __WEBPACK_IMPORTED_MODULE_1__content__["a" /* default */].set(`slider-${index}`, []);
 
       const parentNode = element.parentElement;

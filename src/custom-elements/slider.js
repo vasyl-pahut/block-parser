@@ -1,6 +1,6 @@
 import {findElements} from '../utils'
 import content from '../content'
-import {setExistingElement} from './'
+import {setExistingElement, getExistingElements} from './'
 
 class AppSlider extends HTMLElement {}
 window.customElements.define('app-slider', AppSlider)
@@ -23,7 +23,7 @@ const Slider = {
       }
 
       sliderElement.dataset.bind = `slider-${index}`
-      sliderElement.dataset.Item = 'sliderItemcls#}'
+      sliderElement.dataset.Item = `SliderItem({components: {${getExistingElements().join(', ')}}})cls#}`
       content.set(`slider-${index}`, [])
 
       const parentNode = element.parentElement
