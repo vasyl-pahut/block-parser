@@ -23,7 +23,7 @@ const Slider = {
       }
 
       sliderElement.dataset.bind = `slider-${index}`
-      sliderElement.dataset.Item = `SliderItem({components: {${getExistingElements().join(', ')}}})cls#}`
+      sliderElement.dataset.Item = `CollectionItem({components: {${getExistingElements().join(', ')}}})cls#}`
       content.set(`slider-${index}`, [])
 
       const parentNode = element.parentElement
