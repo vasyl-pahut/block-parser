@@ -30997,9 +30997,9 @@ class ${blockName} extends React.Component {
   }
 }
 
-${blockName}.components = _.pick([${getElements()}])(${blockName})
+${blockName}.components = _.pick([${getElements()}])($editor.components)
 
-${blockName}.content = ${JSON.stringify(__WEBPACK_IMPORTED_MODULE_2__content__["a" /* default */].getAll(), undefined, 2)}
+${blockName}.defaultContent = ${JSON.stringify(__WEBPACK_IMPORTED_MODULE_2__content__["a" /* default */].getAll(), undefined, 2)}
 
 export default ${blockName}
 `);

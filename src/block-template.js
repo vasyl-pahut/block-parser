@@ -37,9 +37,9 @@ class ${blockName} extends React.Component {
   }
 }
 
-${blockName}.components = _.pick([${getElements()}])(${blockName})
+${blockName}.components = _.pick([${getElements()}])($editor.components)
 
-${blockName}.content = ${JSON.stringify(content.getAll(), undefined, 2)}
+${blockName}.defaultContent = ${JSON.stringify(content.getAll(), undefined, 2)}
 
 export default ${blockName}
 `
