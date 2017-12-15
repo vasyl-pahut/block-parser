@@ -1,6 +1,6 @@
 import {findElements} from '../utils'
 import content from '../content'
-import {setExistingElement, getExistingElements} from './'
+import {setExistingElement} from './'
 
 class AppCollection extends HTMLElement {}
 window.customElements.define('app-collection', AppCollection)
@@ -23,9 +23,9 @@ const Collection = {
       }
 
       collectionElement.dataset.bind = `collection-${index}`
-      collectionElement.dataset.Item = `CollectionItem({components: {${getExistingElements().join(', ')}}})cls#}`
+      collectionElement.dataset.Item = `this.collectionItemcls#}`
       content.set(`collection-${index}`, [])
-      // itemsDom.set(`collection-${index}`, element.children[0])
+
       const parentNode = element.parentElement
       parentNode.replaceChild(collectionElement, element)
     })

@@ -1339,21 +1339,6 @@ const Elements = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const findElements = (component, selectors) => selectors.reduce((acc, selector) => {
-  return [...acc, ...Array.from(component.querySelectorAll(selector))];
-}, []);
-/* harmony export (immutable) */ __webpack_exports__["b"] = findElements;
-
-
-const createBind = ({ domBind, elBind }) => domBind.length ? `{\`${domBind.replace(/\[0\]/gm, () => '[${index}]')}.${elBind}\`}` : elBind;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createBind;
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
 
@@ -1373,6 +1358,21 @@ const clear = () => content = {};
   setBind,
   clear
 });
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const findElements = (component, selectors) => selectors.reduce((acc, selector) => {
+  return [...acc, ...Array.from(component.querySelectorAll(selector))];
+}, []);
+/* harmony export (immutable) */ __webpack_exports__["b"] = findElements;
+
+
+const createBind = ({ domBind, elBind }) => domBind.length ? `{\`${domBind.replace(/\[0\]/gm, () => '[${index}]')}.${elBind}\`}` : elBind;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createBind;
+
 
 /***/ }),
 /* 15 */
@@ -14798,8 +14798,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_clipboard__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_elements__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dom_elements__ = __webpack_require__(482);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__block_template__ = __webpack_require__(483);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -30531,9 +30531,9 @@ module.exports = closest;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1____ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(13);
 
 
 
@@ -30566,8 +30566,8 @@ const Text = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
@@ -30611,8 +30611,8 @@ const Image = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
@@ -30669,8 +30669,8 @@ const Menu = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
@@ -30715,8 +30715,8 @@ const Button = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
@@ -30743,9 +30743,9 @@ const Collection = {
       }
 
       collectionElement.dataset.bind = `collection-${index}`;
-      collectionElement.dataset.Item = `CollectionItem({components: {${Object(__WEBPACK_IMPORTED_MODULE_2____["c" /* getExistingElements */])().join(', ')}}})cls#}`;
+      collectionElement.dataset.Item = `this.collectionItemcls#}`;
       __WEBPACK_IMPORTED_MODULE_1__content__["a" /* default */].set(`collection-${index}`, []);
-      // itemsDom.set(`collection-${index}`, element.children[0])
+
       const parentNode = element.parentElement;
       parentNode.replaceChild(collectionElement, element);
     });
@@ -30759,8 +30759,8 @@ const Collection = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
@@ -30787,7 +30787,7 @@ const Slider = {
       }
 
       sliderElement.dataset.bind = `slider-${index}`;
-      sliderElement.dataset.Item = `CollectionItem({components: {${Object(__WEBPACK_IMPORTED_MODULE_2____["c" /* getExistingElements */])().join(', ')}}})cls#}`;
+      sliderElement.dataset.Item = `this.collectionItemcls#}`;
       __WEBPACK_IMPORTED_MODULE_1__content__["a" /* default */].set(`slider-${index}`, []);
 
       const parentNode = element.parentElement;
@@ -30803,8 +30803,8 @@ const Slider = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(12);
 
 
@@ -30864,8 +30864,8 @@ const Map = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3____ = __webpack_require__(12);
 
 
@@ -30957,6 +30957,8 @@ const $copyContentBtn = document.getElementById('clipboard-content');
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_fp__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_elements__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__content__ = __webpack_require__(13);
+
 
 
 
@@ -30964,47 +30966,42 @@ const renderCode = ({ code, rest }) => {
   if (!__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.isEmpty(rest)) {
     return `${__WEBPACK_IMPORTED_MODULE_0_lodash_fp___default.a.reduce((text, element) => {
       return `${text}
-      const CollectionItem = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}}) => ({index, children, className}) => (
-        ${element}
-      )
-      
-      CollectionItem.propTypes = {
-        index: PropTypes.number.isRequired,
-        className: PropTypes.string,
-        children: PropTypes.node,
-      }
-
-      CollectionItem.defaultProps = {
-        className: '',
-        children: null,
-      }
-      `;
+      collectionItem = ({index, children, className}) => {
+        const {components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}} = this.props
+        return (
+          ${element}
+        )
+      }`;
     }, '', rest)}`;
   }
   return '';
 };
 
-const hasImage = () => Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().includes('Image');
+const getElements = () => Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().map(el => `'${el}'`).join(', ');
 
-const getElements = () => Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().map(el => el === 'Image' ? '{component: \'Image\', enhancers: [withResources]}' : `'${el}'`).join(', ');
-
-/* harmony default export */ __webpack_exports__["a"] = (({ blockName, code, rest }) => `import classNames from 'classnames'
-import $editor from 'weblium/editor'
+/* harmony default export */ __webpack_exports__["a"] = (({ blockName, code, rest }) => `import $editor from 'weblium/editor'
 import css from './style.css'
 
-const {enhancers: {withComponents}${hasImage() ? ', connectHelpers: {withResources}' : ''}} = $editor
+class ${blockName} extends React.Component {
+  static propTypes = {
+    components: PropTypes.object.isRequired,
+  }
 
-${renderCode({ code, rest })}
+  ${renderCode({ code, rest })}
 
-const ${blockName} = ({components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}}) => (
-  ${code}
-)
-
-${blockName}.propTypes = {
-  components: PropTypes.object.isRequired,
+  render() {
+    const {components: {${Object(__WEBPACK_IMPORTED_MODULE_1__custom_elements__["c" /* getExistingElements */])().join(', ')}}} = this.props
+    return (
+      ${code}
+    )
+  }
 }
 
-export default withComponents(${getElements()})(${blockName})
+${blockName}.components = _.pick([${getElements()}])(${blockName})
+
+${blockName}.content = ${JSON.stringify(__WEBPACK_IMPORTED_MODULE_2__content__["a" /* default */].getAll(), undefined, 2)}
+
+export default ${blockName}
 `);
 
 /***/ })

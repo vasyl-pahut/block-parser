@@ -1,51 +1,45 @@
 import _ from 'lodash/fp'
 import {getExistingElements} from './custom-elements'
+import content from './content'
 
 const renderCode = ({code, rest}) => {
   if (!_.isEmpty(rest)) {
     return `${_.reduce((text, element) => {
       return `${text}
-      const CollectionItem = ({components: {${getExistingElements().join(', ')}}}) => ({index, children, className}) => (
-        ${element}
-      )
-      
-      CollectionItem.propTypes = {
-        index: PropTypes.number.isRequired,
-        className: PropTypes.string,
-        children: PropTypes.node,
-      }
-
-      CollectionItem.defaultProps = {
-        className: '',
-        children: null,
-      }
-      `
+      collectionItem = ({index, children, className}) => {
+        const {components: {${getExistingElements().join(', ')}}} = this.props
+        return (
+          ${element}
+        )
+      }`
     }, '', rest)}`
   }
   return ''
 }
 
-const hasImage = () => getExistingElements().includes('Image')
+const getElements = () => getExistingElements().map(el => `'${el}'`).join(', ')
 
-const getElements = () =>
-  getExistingElements().map(el =>
-    el === 'Image' ? '{component: \'Image\', enhancers: [withResources]}' : `'${el}'`).join(', ')
-
-export default ({blockName, code, rest}) => `import classNames from 'classnames'
-import $editor from 'weblium/editor'
+export default ({blockName, code, rest}) => `import $editor from 'weblium/editor'
 import css from './style.css'
 
-const {enhancers: {withComponents}${hasImage() ? ', connectHelpers: {withResources}' : ''}} = $editor
+class ${blockName} extends React.Component {
+  static propTypes = {
+    components: PropTypes.object.isRequired,
+  }
 
-${renderCode({code, rest})}
+  ${renderCode({code, rest})}
 
-const ${blockName} = ({components: {${getExistingElements().join(', ')}}}) => (
-  ${code}
-)
-
-${blockName}.propTypes = {
-  components: PropTypes.object.isRequired,
+  render() {
+    const {components: {${getExistingElements().join(', ')}}} = this.props
+    return (
+      ${code}
+    )
+  }
 }
 
-export default withComponents(${getElements()})(${blockName})
+${blockName}.components = _.pick([${getElements()}])(${blockName})
+
+${blockName}.content = ${JSON.stringify(content.getAll(), undefined, 2)}
+
+export default ${blockName}
 `
