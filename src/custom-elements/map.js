@@ -41,6 +41,7 @@ const Map = {
           id: '2aceeb6f-623c-41f8-b0d3-6f0f085e8e48',
         }]
       })
+      // domBind && content.setBind(domBind, {id: 'item-0'})
       const parentNode = element.parentElement
       parentNode.replaceChild(mapElement, element)
     })

@@ -45,6 +45,7 @@ const Menu = {
           })
         )
       )
+      // domBind && content.setBind(domBind, {id: 'item-0'})
       const parentNode = element.parentElement
       parentNode.replaceChild(menuElement, element)
     })

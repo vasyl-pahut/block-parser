@@ -23,6 +23,7 @@ const Text = {
           .replace(/\n+|\t+/igm, () => ' ')
           .replace(/ {2,}/igm, () => ' ')
         )
+        // bind && content.setBind(bind, {id: 'item-0'})
       element.innerHTML = ''
       element.appendChild(textElement)    
     })

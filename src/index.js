@@ -1,6 +1,7 @@
 import _ from 'lodash/fp'
 import {Observable} from 'rxjs/Rx'
 import Clipboard from 'clipboard'
+import {v4 as uuid} from 'uuid'
 import {
   Elements, getExistingElements, clearElements
 } from './custom-elements'
@@ -10,6 +11,9 @@ import {
 import {findElements} from './utils'
 import content from './content'
 import BlockTemplate from './block-template'
+
+// helper
+window.uuid = uuid
 
 const appTags = /(app-text)|(app-image)|(app-button)|(app-menu)|(app-collection)|(app-slider)|(app-map)|(app-icon)/igm
 const closingTags = /(><\/Text>)|(><\/Image>)|(><\/Button>)|(><\/Menu>)|(><\/Collection>)|(><\/Slider>)|(><\/Map>)|(><\/Icon>)/igm
@@ -25,12 +29,32 @@ const cleanCode = () => {
   clearElements()
 }
 
+const createIdsForItems = () => _.flow(
+  _.pickBy(_.isArray),
+  _.entries,
+  _.forEach(([key, items]) => {
+    items.forEach((item, index) => {
+      console.log('for each', {item, key, index});
+      content.setBind(`${key}[${index}]`, {
+        ...item,
+        id: uuid()
+      })
+    })
+  })
+)(content.getAll())
+
 const createCode = ({main, ...rest}) => {
   const blockName = $blockNameInput.value || 'Block'
+
+  createIdsForItems()
+
+  console.log('content: ', {
+    content: content.getAll(),
+  })
+
   const fullCode = BlockTemplate({blockName, code: main, rest})
 
   $codeOutput.innerText = fullCode
-  console.log('content: ', {content: content.getAll()})
   new Clipboard($copyCodeBtn, {text: () => fullCode})
   new Clipboard($copyContentBtn, {text: () => JSON.stringify(content.getAll(), undefined, 2)})
 
@@ -63,11 +87,6 @@ const getJsx = (doms) => {
         .replace(/\n/gm, '\n\t\t\t')
         .replace(/\t/gm, '  ')
   ))(doms)
-
-  console.log('get jsx', {
-    doms,
-    newDoms,
-  })
 
   createCode(newDoms)
 }
