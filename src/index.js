@@ -59,6 +59,7 @@ const getJsx = (doms) => {
         .replace(/cls#}"/igm, '}')
         .replace(/xmlns:xlink/igm, 'xmlnsLink')
         .replace(/xlink:href/igm, 'xlinkHref')
+        .replace(/{children}/igm, '\n\t\t\t{children}')
         .replace(/\n/gm, '\n\t\t\t')
         .replace(/\t/gm, '  ')
   ))(doms)
