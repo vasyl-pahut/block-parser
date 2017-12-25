@@ -4,7 +4,7 @@ window.customElements.define('app-children-placeholder', ChildrenPlaceholder)
 const CollectionItem = {
   getElements: () => null,
   convert: ({dom, bind}) => {
-    if (bind.includes('collection') || bind.includes('slider')) {
+    if (bind.includes('collection')) {
       const childrenPlaceholder = new ChildrenPlaceholder()
       childrenPlaceholder.innerText = '{children}'
       dom.children[0].prepend(childrenPlaceholder)
