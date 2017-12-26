@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import {v4 as uuid} from 'uuid'
 import {findElements, createBind} from '../utils'
 import content from '../content'
 import {setExistingElement} from './'
@@ -29,7 +30,7 @@ const Icon = {
 
       iconElement.dataset.bind = createBind({domBind, elBind: `icon-${index}`})
       content.setBind(`${domBind ? domBind + '.' : ''}icon-${index}`, {
-        id: '12748',
+        id: uuid(),
         svg,
       })
       // domBind && content.setBind(domBind, {id: 'item-0'})
